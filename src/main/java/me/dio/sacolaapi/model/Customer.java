@@ -1,6 +1,5 @@
 package me.dio.sacolaapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,21 +11,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Data
+//nao recomendado usar porque pode usar dados que nao serao utilizadas e sobrecarregar, no nosso caso, são poucos dados
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 @Entity
-public class Item {
-    //relacionada com a tabela de produto e com a tabela de sacola
-    //1 item só tem 1 produto
+
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private Product product;
-    private int quantity;
-    @ManyToOne
-    //uma sacola tem varios itens
-    @JsonIgnore
-    private ShoppingBag sacola;
+    private String name;
+    @Embedded
+    private Address address;
 }
-

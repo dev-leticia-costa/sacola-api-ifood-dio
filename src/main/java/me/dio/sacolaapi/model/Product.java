@@ -12,21 +12,23 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Data
+//nao recomendado usar porque pode usar dados que nao serao utilizadas e sobrecarregar, no nosso caso, são poucos dados
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 @Entity
-public class Item {
-    //relacionada com a tabela de produto e com a tabela de sacola
-    //1 item só tem 1 produto
+
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private Product product;
-    private int quantity;
-    @ManyToOne
-    //uma sacola tem varios itens
-    @JsonIgnore
-    private ShoppingBag sacola;
-}
+    private String name;
 
+    private double unityValue;
+    @Builder.Default
+    //setado como defauld que o produto está disponível ao gerá-lo
+    private Boolean isavailable = true; //porque aqui tem true e na classe bag não?
+   @ManyToOne
+   @JsonIgnore
+    private Restaurant restaurante;
+
+}
