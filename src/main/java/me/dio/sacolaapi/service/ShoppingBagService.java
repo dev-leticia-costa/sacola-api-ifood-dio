@@ -8,6 +8,7 @@ public interface ShoppingBagService {
     //3 funcionalidades:ver sacola, incluir item e fechar sacola
     //precisa retornar a sacola
     // precisa passar o id
+    //quem implementar a interface, vai implementar esses métodos
   ShoppingBag seeBag(Long id);
   Item addItem(ItemDto itemDto);
   ShoppingBag closeBag(Long id, int FormOfPayment);
