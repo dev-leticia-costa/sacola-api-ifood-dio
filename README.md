@@ -1,10 +1,12 @@
 # sacola-api-ifood-dio
 Create a API REST for delivery service. 
+Architecture: MVC. 
 
 ## FUNCTIONALITIES
 
 Spring Framework
 Java
+
 
 ## HOW INITIALIZE
 https://start.spring.io/
@@ -15,3 +17,4 @@ JPA
 SPRING WEB 
 LOMBOK
 H2 DATABASE SQL
+
