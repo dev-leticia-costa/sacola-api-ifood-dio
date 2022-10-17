@@ -33,10 +33,10 @@ public class ShoppingBagResource {
       return sacolaService.addItem(itemDto);
     }
 
-    @PatchMapping("/fecharSacola/{sacolaId}")
-    public ShoppingBag closeBag( @PathVariable ("id") Long sacolaId,
-                                 @RequestParam("formaPagamento") int FormOfPayment){
-        return sacolaService.closeBag(sacolaId, FormOfPayment);
+    @PatchMapping("/fecharsacola/{id}")
+    public ShoppingBag closeBag( @PathVariable ("id") Long id,
+                         @RequestParam("payment") int payment){
+     return sacolaService.closeBag(id, payment);
     }
 //a sacola já existe, o dado é atualizado (patch ou put)
 

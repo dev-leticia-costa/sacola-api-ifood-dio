@@ -5,7 +5,7 @@ INSERT INTO restaurant (id, cep, additional_information, nome) VALUES
 INSERT INTO customer (id, cep, additional_information, name) VALUES
 (1L, '0000001', 'Complemento Endereço Cliente 1', 'Cliente 1');
 
-INSERT INTO product (id, isavailable, name, unity_value, restaurante_id) VALUES
+INSERT INTO product (id, isavailable, name, unity_value, restaurant_id) VALUES
 (1L, true, 'Produto 1', 5.0, 1L),
 (2L, true, 'Produto 2', 6.0, 1L),
 (3L, true, 'Produto 3', 7.0, 2L);
