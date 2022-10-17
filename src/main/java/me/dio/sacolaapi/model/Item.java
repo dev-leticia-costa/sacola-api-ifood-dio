@@ -23,10 +23,15 @@ public class Item {
     private Long id;
     @OneToOne
     private Product product;
+
+    public Item(int quantity) {
+        this.quantity = quantity;
+    }
+
     private int quantity;
     @ManyToOne
     //uma sacola tem varios itens
     @JsonIgnore
-    private ShoppingBag sacola;
+    private ShoppingBag sacolaItem;
 }
 

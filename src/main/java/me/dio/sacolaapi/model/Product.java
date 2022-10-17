@@ -29,6 +29,6 @@ public class Product {
     private Boolean isavailable = true; //porque aqui tem true e na classe bag não?
    @ManyToOne
    @JsonIgnore
-    private Restaurant restaurante;
+    private Restaurant restaurant;
 
 }

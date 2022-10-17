@@ -37,6 +37,9 @@ public class ShoppingBag {
     @Enumerated
     private FormOfPayment payment;
     private boolean isclosed;
+
+//    public void FormOfPayment(FormOfPayment formadePagamento) {
+//    }
 }
 //    //a classe sacola é um molde, precisamos de um construtor
 //    public ShoppingBag(Long id, Customer client, List<Item> itens, double valueTotal, FormOfPayment payment, boolean isclosed) {
