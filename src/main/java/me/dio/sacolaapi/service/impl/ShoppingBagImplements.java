@@ -95,7 +95,7 @@ public class ShoppingBagImplements implements ShoppingBagService {
             }
         }
 
-        //~~~ ADD VALUE item~~~~//
+        //~~~ ADD VALUE TOTAL ITEM = item x quantity ~~~~//
 
         List<Double> valorDosItens = new ArrayList<>();
         for(Item itensBags : itemBag) {
@@ -104,6 +104,7 @@ public class ShoppingBagImplements implements ShoppingBagService {
          valorDosItens.add(valorTotalItem);
 
         }
+        //~~~SUM~~~//
         double valorTotalSacola = valorDosItens.stream()
                 .mapToDouble(valorTotalItem -> valorTotalItem)
                         .sum();
