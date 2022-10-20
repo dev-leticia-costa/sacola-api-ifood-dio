@@ -1,5 +1,6 @@
 package me.dio.sacolaapi.resource;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import me.dio.sacolaapi.model.Item;
 import me.dio.sacolaapi.model.ShoppingBag;
@@ -7,6 +8,7 @@ import me.dio.sacolaapi.resource.dto.ItemDto;
 import me.dio.sacolaapi.service.ShoppingBagService;
 import org.springframework.web.bind.annotation.*;
 
+@Api(value="/ifood-devweek/shoppingbag")
 @RestController
 //essa é a classe que contem os endpoints - resource (maperar as urls)
 @RequestMapping("/ifood-devweek/shoppingbag")
@@ -33,10 +35,10 @@ public class ShoppingBagResource {
       return sacolaService.addItem(itemDto);
     }
 
-    @PatchMapping("/fecharSacola/{sacolaId}")
-    public ShoppingBag closeBag( @PathVariable ("id") Long sacolaId,
-                                 @RequestParam("formaPagamento") int FormOfPayment){
-        return sacolaService.closeBag(sacolaId, FormOfPayment);
+    @PatchMapping("/fecharsacola/{id}")
+    public ShoppingBag closeBag( @PathVariable ("id") Long id,
+                         @RequestParam("payment") int payment){
+     return sacolaService.closeBag(id, payment);
     }
 //a sacola já existe, o dado é atualizado (patch ou put)
 

@@ -28,6 +28,8 @@ public class ShoppingBagImplements implements ShoppingBagService {
     private final ShoppingBagRepository sacolaRepository;
     private final ProductRepository productRepository;
 
+    private final ItemRepository itemRepository;
+
 
 
 //    //private final necessita construtor
@@ -66,7 +68,7 @@ public class ShoppingBagImplements implements ShoppingBagService {
             throw new RuntimeException("Esta sacola está fechada");
         }
         Item insertItem = Item.builder()
-                .quantity(ItemDto.getQuantity())
+                .quantity(itemDto.getQuantity())
                 .sacolaItem(sacola)
                 .product(productRepository.findById(itemDto.getProductId()).orElseThrow(
                 () -> {
@@ -92,14 +94,35 @@ public class ShoppingBagImplements implements ShoppingBagService {
                 throw new RuntimeException(" Can´t add product: different restaurants");
             }
         }
-    sacolaRepository.save(sacola);
+
+        //~~~ ADD VALUE TOTAL ITEM = item x quantity ~~~~//
+
+        List<Double> valorDosItens = new ArrayList<>();
+        for(Item itensBags : itemBag) {
+          double valorTotalItem =
+                  itensBags.getProduct().getUnityValue() * itensBags.getQuantity();
+         valorDosItens.add(valorTotalItem);
+
+        }
+        //~~~SUM~~~//
+        double valorTotalSacola = valorDosItens.stream()
+                .mapToDouble(valorTotalItem -> valorTotalItem)
+                        .sum();
+
+
+
+        sacola.setValueTotal(valorTotalSacola);
+        sacolaRepository.save(sacola);
+        return insertItem;
 
                 //anotaçao @builder (design pattern) -. construir objeto com esse metodo e fechar com o build
         //para construir o objeto: id (gerado automaticamente), saber qual produto, quantidade e em qual sacola será inserido
         //.quantidade-> itemDtio
         //somente itens do mesmo restaurante podem ser adicionado, casop já tenha um item.
-        return null;
+
     }
+
+
     //~~~~CLOSE BAG~~~~//
     @Override
     public ShoppingBag closeBag(Long id, int numeroFormPayment) {
