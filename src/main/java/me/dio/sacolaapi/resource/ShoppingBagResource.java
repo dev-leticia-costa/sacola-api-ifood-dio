@@ -42,6 +42,11 @@ public class ShoppingBagResource {
     }
 //a sacola já existe, o dado é atualizado (patch ou put)
 
+    @DeleteMapping("/deletarsacola/{id}")
+    public ShoppingBag deleteBag( @PathVariable ("id") Long id){
+        return sacolaService.deleteBag(id);
+    }
+
 
 
 

@@ -13,6 +13,6 @@ public interface ShoppingBagService {
   Item addItem(ItemDto itemDto);
   ShoppingBag closeBag(Long id, int FormOfPayment);
   //int porque a forma de pagamento é uma constante (0 ou 1)
-
+//    ShoppingBag deleteBag(Long id);
 
 }
