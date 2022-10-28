@@ -11,6 +11,7 @@ import me.dio.sacolaapi.repository.ShoppingBagRepository;
 import me.dio.sacolaapi.resource.dto.ItemDto;
 import me.dio.sacolaapi.service.ShoppingBagService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,6 @@ public class ShoppingBagImplements implements ShoppingBagService {
     private final ItemRepository itemRepository;
 
 
-
 //    //private final necessita construtor
 //    public ShoppingBagImplements(ShoppingBagRepository sacolaRepository) {
 //        this.sacolaRepository = sacolaRepository;
@@ -45,17 +45,16 @@ public class ShoppingBagImplements implements ShoppingBagService {
         return sacolaRepository.findById(id).orElseThrow(
                 () -> {
                     throw new RuntimeException(" not found");
+                }
+        );
     }
-    );
-}
 
-        //para ter acesso ao metodo findByid, ele retorna um Optional caso nao exista
-        //functional interface : elseThrow -> se nao consegir encontrar, run time exception
-        //mensagem: sacola nao existe
+    //para ter acesso ao metodo findByid, ele retorna um Optional caso nao exista
+    //functional interface : elseThrow -> se nao consegir encontrar, run time exception
+    //mensagem: sacola nao existe
 
 
-
-//~~~~ADD ITEM~~~~//
+    //~~~~ADD ITEM~~~~//
     @Override
     public Item addItem(ItemDto itemDto) {
         //qual sacola vai ser inserido
@@ -63,19 +62,18 @@ public class ShoppingBagImplements implements ShoppingBagService {
         //somente insere itens se estiver aberta
         ShoppingBag sacola = seeBag(itemDto.getSacolaId());
 
-        if(sacola.isIsclosed())
-        {
+        if (sacola.isIsclosed()) {
             throw new RuntimeException("Esta sacola está fechada");
         }
         Item insertItem = Item.builder()
                 .quantity(itemDto.getQuantity())
                 .sacolaItem(sacola)
                 .product(productRepository.findById(itemDto.getProductId()).orElseThrow(
-                () -> {
-                    throw new RuntimeException(" not found");
-                }
-        ))
-        .build();
+                        () -> {
+                            throw new RuntimeException(" not found");
+                        }
+                ))
+                .build();
 
         List<Item> itemBag = sacola.getItens();
         if (itemBag.isEmpty()) {
@@ -98,24 +96,23 @@ public class ShoppingBagImplements implements ShoppingBagService {
         //~~~ ADD VALUE TOTAL ITEM = item x quantity ~~~~//
 
         List<Double> valorDosItens = new ArrayList<>();
-        for(Item itensBags : itemBag) {
-          double valorTotalItem =
-                  itensBags.getProduct().getUnityValue() * itensBags.getQuantity();
-         valorDosItens.add(valorTotalItem);
+        for (Item itensBags : itemBag) {
+            double valorTotalItem =
+                    itensBags.getProduct().getUnityValue() * itensBags.getQuantity();
+            valorDosItens.add(valorTotalItem);
 
         }
         //~~~SUM~~~//
         double valorTotalSacola = valorDosItens.stream()
                 .mapToDouble(valorTotalItem -> valorTotalItem)
-                        .sum();
-
+                .sum();
 
 
         sacola.setValueTotal(valorTotalSacola);
         sacolaRepository.save(sacola);
         return insertItem;
 
-                //anotaçao @builder (design pattern) -. construir objeto com esse metodo e fechar com o build
+        //anotaçao @builder (design pattern) -. construir objeto com esse metodo e fechar com o build
         //para construir o objeto: id (gerado automaticamente), saber qual produto, quantidade e em qual sacola será inserido
         //.quantidade-> itemDtio
         //somente itens do mesmo restaurante podem ser adicionado, casop já tenha um item.
@@ -139,12 +136,34 @@ public class ShoppingBagImplements implements ShoppingBagService {
     }
 
 
-        //1º qual sacola -> ver sacola (porque já passou pela exceção)
-        //2º sacola vazia nao pode ser fechada
-        //pegar metodo get itens pra saber se tem itens = retorna lista de item
-        //isEmpty: ver se a lista tem itens ou nao -> se não -> RuntimeException
+    //1º qual sacola -> ver sacola (porque já passou pela exceção)
+    //2º sacola vazia nao pode ser fechada
+    //pegar metodo get itens pra saber se tem itens = retorna lista de item
+    //isEmpty: ver se a lista tem itens ou nao -> se não -> RuntimeException
 
-        //se tiver itens -> forma de pagamento
+    //se tiver itens -> forma de pagamento
+
+
+    //~~~~DELETE BAG~~~~//
+//    @Override
+//    @DeleteMapping("/{id}")
+//    public ShoppingBag deleteBag(Long id) {
+//
+//        ShoppingBag sacolaDelete = seeBag(id);
+//
+//
+//        if (sacolaDelete.isIsclosed()) {
+//
+//            throw new RuntimeException("Esta sacola está fechada, não é possível excluí-la!");
+//
+//        }
+//        return sacolaDelete.deleteById(id);
+//
+//    }
+//
+//
+//    //delete: 1 -> ACHAR A SACOLA -> seeBag
+//    //a sacola não pode estar fechada
 
 
 }

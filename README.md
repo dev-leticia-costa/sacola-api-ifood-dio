@@ -1,20 +1,24 @@
-# sacola-api-ifood-dio
-Create a API REST for delivery service. 
-Architecture: MVC. 
 
-## FUNCTIONALITIES
+# SACOLA-API
+Create a API REST for delivery service with MVC architecture. 
+Project develop in Ifood Dev Week (Author: Camila Cavalcante)
+
+
+## REQUIREMENTS
 
 Spring Framework
-Java
+Maven/Gradle
+Postman
+
 
 
 ## HOW INITIALIZE
 https://start.spring.io/
-BUILD: Maven https://maven.apache.org/
+
+
 
 ### DEPENDENCIES
-JPA
-SPRING WEB 
-LOMBOK
-H2 DATABASE SQL
-
+JPA (version 2.7.4)
+SPRING WEB (version 2.7.4)
+LOMBOK 
+H2 DATABASE SQL 
